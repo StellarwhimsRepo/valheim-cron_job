@@ -6,7 +6,7 @@
     <nullable>enable</nullable>
     <DoILRepack>false</DoILRepack>
   </PropertyGroup>
-  <Target Name="ILRepacker" AfterTargets="Build" >
+  <Target Name="ILRepacker" AfterTargets="Build">
       <ItemGroup>
           <InputAssemblies Include="$(TargetPath)" />
           <InputAssemblies Include="$(TargetDir)YamlDotNet.dll" />
@@ -19,46 +19,46 @@
     <Message Text="Copied to Libs folder." Importance="High" />
   </Target>
   <ItemGroup>
-    <Reference Include="BepInEx.dll">
-      <HintPath>..\..\Libs\BepinEx.dll</HintPath>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\Libs\BepInEx\core\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.dll">
-      <HintPath>..\..\Libs\UnityEngine.dll</HintPath>
+    <Reference Include="assembly_guiutils">
+      <HintPath>..\..\Libs\publicized_assemblies\assembly_guiutils_publicized.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.CoreModule.dll">
-      <HintPath>..\..\Libs\UnityEngine.CoreModule.dll</HintPath>
+    <Reference Include="assembly_utils">
+      <HintPath>..\..\Libs\publicized_assemblies\assembly_utils_publicized.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.InputLegacyModule.dll">
-      <HintPath>..\..\Libs\UnityEngine.InputLegacyModule.dll</HintPath>
+    <Reference Include="assembly_valheim">
+      <HintPath>..\..\Libs\publicized_assemblies\assembly_valheim_publicized.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI.dll">
-      <HintPath>..\..\Libs\UnityEngine.UI.dll</HintPath>
+    <Reference Include="BepInEx">
+      <HintPath>..\..\Libs\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule.dll">
-      <HintPath>..\..\Libs\UnityEngine.TextRenderingModule.dll</HintPath>
+    <Reference Include="BepInEx.Harmony">
+      <HintPath>..\..\Libs\BepInEx\core\BepInEx.Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.PhysicsModule.dll">
-      <HintPath>..\..\Libs\UnityEngine.PhysicsModule.dll</HintPath>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\Libs\Managed\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="0Harmony.dll">
-      <HintPath>..\..\Libs\0Harmony.dll</HintPath>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\Libs\unstripped_corlib\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
-    <Reference Include="BepInEx.Harmony.dll">
-      <HintPath>..\..\Libs\BepInEx.Harmony.dll</HintPath>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>..\..\Libs\unstripped_corlib\UnityEngine.InputLegacyModule.dll</HintPath>
     </Reference>
-    <Reference Include="assembly_valheim_publicized.dll">
-      <HintPath>..\..\Libs\assembly_valheim_publicized.dll</HintPath>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\..\Libs\unstripped_corlib\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
-    <Reference Include="assembly_utils_publicized.dll">
-      <HintPath>..\..\Libs\assembly_utils_publicized.dll</HintPath>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\Libs\unstripped_corlib\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
-    <Reference Include="assembly_guiutils_publicized.dll">
-      <HintPath>..\..\Libs\assembly_guiutils_publicized.dll</HintPath>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\Libs\unstripped_corlib\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ILRepack.Lib.MSBuild" Version="2.1.18" />
-    <PackageReference Include="YamlDotNet" Version="11.2.1" />
+    <PackageReference Include="YamlDotNet" Version="12.2.1" />
     <PackageReference Include="Cronos" Version="0.7.1" />
   </ItemGroup>
 </Project>
