@@ -29,7 +29,7 @@ public class CronJob : BaseUnityPlugin
       timer -= Time.deltaTime;
       if (timer <= 0f)
       {
-        timer = CronManager.Interval;
+        timer = 10f;
         CronManager.Execute();
         TrackManager.Track();
       }
