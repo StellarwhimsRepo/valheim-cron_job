@@ -9,6 +9,8 @@ namespace CronJob;
 
 public class CronData
 {
+  public string timezone = "UTC";
+  public float interval = 10;
   public List<CronEntry> jobs = new();
   public List<CronEntry> zone = new();
 }
@@ -29,22 +31,15 @@ public class CronManager
 
   public static List<CronEntry> Jobs = new();
   public static List<CronEntry> ZoneJobs = new();
+  public static float Interval = 10f;
+  public static TimeZoneInfo TimeZone = TimeZoneInfo.Utc;
 
 private static DateTime? Parse(string value)
 {
     CronExpression expression = CronExpression.Parse(value);
-    return expression.GetNextOccurrence(DateTime.UtcNow);
-}
-
-private static DateTime? Parse(string value, DateTime next)
-{
-    CronExpression expression = CronExpression.Parse(value);
-    DateTime utcnext = DateTime.SpecifyKind(next, DateTimeKind.Utc);
-    return expression.GetNextOccurrence(utcnext);
-}
-
-
-    private static System.Random random = new();
+    return expression.GetNextOccurrence(next ?? DateTime.UtcNow);
+  }
+  private static System.Random random = new();
   private static bool Roll(float chance)
   {
     if (chance >= 1f) return true;
@@ -151,11 +146,41 @@ private static DateTime? Parse(string value, DateTime next)
       File.WriteAllText(FilePath, yaml);
     }
   }
+  private static bool ParseTimeZone(string timezone)
+  {
+    timezone = timezone.ToLower();
+    foreach (var tz in TimeZoneInfo.GetSystemTimeZones())
+    {
+      if (tz.Id.ToLower() == timezone || tz.DisplayName.ToLower() == timezone)
+      {
+        TimeZone = tz;
+        return true;
+      }
+    }
+    foreach (var tz in TimeZoneInfo.GetSystemTimeZones())
+    {
+      if (tz.Id.ToLower().Contains(timezone) || tz.DisplayName.ToLower().Contains(timezone))
+      {
+        TimeZone = tz;
+        return true;
+      }
+    }
+    return false;
+  }
   public static void FromFile()
   {
     try
     {
       var data = Data.Read(FilePath, Data.Deserialize<CronData>);
+      Interval = data.interval;
+      if (ParseTimeZone(data.timezone))
+        CronJob.Log.LogInfo($"Selected time zone {TimeZone.Id} / {TimeZone.DisplayName}.");
+      else
+      {
+        CronJob.Log.LogWarning($"Time zone {data.timezone} not found, using UTC. Possible time zones are:");
+        foreach (var tz in TimeZoneInfo.GetSystemTimeZones())
+          CronJob.Log.LogWarning($"{tz.Id} / {tz.DisplayName}");
+      }
       Jobs = data.jobs;
       foreach (var cron in Jobs)
         cron.next = Parse(cron.schedule);
