@@ -4,3 +4,5 @@ bin
 obj
 /.vs/*
 
+/CronJob/CronJob.csproj
+/valheim-cron-job.sln
